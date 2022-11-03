@@ -1,0 +1,46 @@
+﻿@page "/"
+@inherits IndexBase
+
+<PageTitle>Todo App</PageTitle>
+
+<h1>Tasks</h1>
+<hr/>
+
+@if(tasksItem == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+   <div class="mb-2">
+        <button class="btn btn-primary" @onclick="Create">Create</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in tasksItem.tasks)
+            {
+                <tr>
+                    <td>@task.Name</td>
+                    <td>@task.Priority</td>
+                    <td>@task.Status.ToString()</td>
+                    <td>
+                        <button class="btn btn-sm btn-secondary" @onclick="() => Edit(Guid.Parse(task.Id))">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" @onclick="() => Delete(task)">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table> 
+}
+

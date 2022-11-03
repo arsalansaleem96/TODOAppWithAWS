@@ -1,0 +1,44 @@
+﻿@page "/task/{Id:guid?}"
+@inherits AddUpdateTaskBase
+
+@using Microsoft.AspNetCore.Components
+@using global::Tasks.App.Data.Entities
+@using global::Tasks.App.Data.Enum
+
+<h1>@Heading</h1>
+<hr />
+
+@if (ShowError)
+{
+    <div class="alert alert-warning">An error occurred when trying to add / update Task.</div>
+}
+
+@if (ShowSuccess)
+{
+    <div class="alert alert-success">Task successfully added / updated.</div>
+}
+
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit" class="w-50">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="name">Name</label>
+        <InputText id="name" @bind-Value="model.Name" class="form-control" />
+    </div>
+
+     <div class="form-group">
+        <label for="priority">Priority</label>
+        <InputNumber id="priority" @bind-Value="model.Priority" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="task-status">Task Status</label>
+        <InputSelect id="task-status" @bind-Value="model.Status" class="form-control">
+            <option value="10" selected>Select Status ...</option>
+            <option value="0">NotStarted</option>
+            <option value="1">InProgress</option>
+            <option value="2">Completed</option>
+        </InputSelect>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
